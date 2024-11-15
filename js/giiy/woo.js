@@ -1,0 +1,2 @@
+$("#word").html("definitely");
+myApp.woourl = "https://wooordhunt.ru/word/definitely";

@@ -1,0 +1,2 @@
+$("#word").html("complication");
+myApp.woourl = "https://wooordhunt.ru/word/complication";

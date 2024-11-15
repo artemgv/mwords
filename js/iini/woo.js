@@ -1,0 +1,2 @@
+$("#word").html("incorrect");
+myApp.woourl = "https://wooordhunt.ru/word/incorrect";

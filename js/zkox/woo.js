@@ -1,0 +1,2 @@
+$("#word").html("sweatshirt");
+myApp.woourl = "https://wooordhunt.ru/word/sweatshirt";
