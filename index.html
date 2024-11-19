@@ -52,7 +52,7 @@ function createXHR(){
 
 $(document).ready(function() {
   if (location.hash.length == 5) {
-    xhr.open("get", myApp.locationPathname + "js/" + location.hash.slice(1) + "/woo.js?" + (+new Date()).toString(), false);
+    xhr.open("get", myApp.locationPathname + "js/" + location.hash.slice(1) + ".js?" + (+new Date()).toString(), false);
     xhr.onload = function() {
       if (xhr.status != 200) {
         $(".container").remove();
