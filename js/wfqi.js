@@ -1,2 +1,0 @@
-$("#word").html("onboard");
-myApp.woourl = "https://wooordhunt.ru/word/onboard";

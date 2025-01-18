@@ -1,2 +1,0 @@
-$("#word").html("ordinary");
-myApp.woourl = "https://wooordhunt.ru/word/ordinary";

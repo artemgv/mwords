@@ -1,2 +1,0 @@
-$("#word").html("abnormal");
-myApp.woourl = "https://wooordhunt.ru/word/abnormal";

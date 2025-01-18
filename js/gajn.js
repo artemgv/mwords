@@ -1,2 +1,0 @@
-$("#word").html("progressive");
-myApp.woourl = "https://wooordhunt.ru/word/progressive";
