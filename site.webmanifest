@@ -1,23 +1,22 @@
-
-
 {
-  "name": "Mastering words",
-  "short_name": "Mastering words",
-  "description": "Карточки для изучения английского языка.",
+  "name": "Mastering Words",
+  "short_name": "Mastering",
+  "description": "Карточки для изучения английских слов и фраз.",
   "icons": [
     {
       "src": "https://hb.bizmrg.com/bckt/assets/img/favicons/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "https://hb.bizmrg.com/bckt/assets/img/favicons/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }],
   "start_url": "/",
   "theme_color": "#8ab4f8",
   "background_color": "#1b1b1e",
-  "display": "fullscreen"
+  "display": "standalone"
 }
-
