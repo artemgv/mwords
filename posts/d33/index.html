@@ -274,7 +274,7 @@ href="javascript:location.href = 'mailto:' + ['support','masteringwords.ru'].joi
     </button>
 
     <div id="topbar-title">
-      Пост
+
     </div>
 
     <button type="button" id="search-trigger" class="btn btn-link">
@@ -795,10 +795,10 @@ href="javascript:location.href = 'mailto:' + ['support','masteringwords.ru'].joi
   </tbody>
 </table></div>
 
-<h2 id="quizlet-checker"><span class="me-2">Quizlet Checker</span><a href="#quizlet-checker" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h2 id="quizlet-checker"><span class="me-2">Quizlet</span><a href="#quizlet-checker" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
-<div id="quizlet-placeholder" style="min-height: 600px;"><p class="text-center text-muted">Загрузка тренажера...</p></div>
-<!-- https://quizlet.com/1006196383/write --><script>document.addEventListener("DOMContentLoaded", function () {const observer = new IntersectionObserver(function (entries, observer) {entries.forEach(entry => {if (entry.isIntersecting) {const iframe = document.createElement("iframe");iframe.src = "https://quizlet.com/1006196383/write";iframe.width = "100%";iframe.height = "600";iframe.style.border = "none";iframe.loading = "lazy";iframe.allowFullscreen = true;iframe.id = "quizlet";entry.target.innerHTML = "";entry.target.appendChild(iframe);observer.unobserve(entry.target);}});}, {rootMargin: "200px",});const target = document.getElementById("quizlet-placeholder");observer.observe(target);});</script>
+
+<!-- https://quizlet.com/1006196383/write --><button style="background-color: #1f1f22; color: #afb0b1; border: none; padding: .4rem .9rem; margin-bottom: .4rem; cursor: pointer; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor=`#252526`;this.style.color=`#8ab4f8`;" onmouseout="this.style.backgroundColor=`#1f1f22`;this.style.color=`#afb0b1`;" onclick="window.open(`https://quizlet.com/1006196383/write`, `_blank`);">Открыть в новой вкладке</button><div id="quizlet-placeholder" style="min-height: 600px;"><button id="load-quizlet" style="background-color: #1f1f22; color: #afb0b1; border: none; padding: .4rem .9rem; cursor: pointer; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor=`#252526`;this.style.color=`#8ab4f8`;" onmouseout="this.style.backgroundColor=`#1f1f22`;this.style.color=`#afb0b1`;">Запустить прямо здесь</button></div><script>document.addEventListener("DOMContentLoaded", function () {const button = document.getElementById("load-quizlet");button.addEventListener("click", function () {const container = document.getElementById("quizlet-placeholder");const iframe = document.createElement("iframe"); iframe.src = "https://quizlet.com/1006196383/write"; iframe.width = "100%"; iframe.height = "600"; iframe.style.border = "none"; iframe.loading = "lazy"; iframe.allowFullscreen = true; iframe.id = "quizlet";container.innerHTML = ""; container.appendChild(iframe);});});</script>
 
 
   </div>
@@ -1130,7 +1130,7 @@ href="javascript:location.href = 'mailto:' + ['support','masteringwords.ru'].joi
 
 
 
-<script>const targetLink = document.querySelector('a[href="#колоды"].toc-link.node-name--H2.is-active-link');if (targetLink) {targetLink.addEventListener("click", function(event) {event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth'});});}</script><script>SimpleJekyllSearch({limit: 38,
+<script>document.querySelector(`#quizlet-checker .me-2`).textContent = `Тренажер правописания Quizlet`; const targetLink = document.querySelector('a[href="#колоды"].toc-link.node-name--H2.is-active-link');if (targetLink) {targetLink.addEventListener("click", function(event) {event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth'});});}</script><script>SimpleJekyllSearch({limit: 38,
 searchInput: document.getElementById("search-input"),
 resultsContainer: document.getElementById("search-results"),
 json: "https://hb.bizmrg.com/bckt/assets/js/data/search.json",
