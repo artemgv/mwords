@@ -3,4 +3,4 @@ User-agent: *
 Disallow: /assets/
 Disallow: /norobots/
 
-Sitemap: https://hb.bizmrg.com/bckt/commons/sitemap.xml
+Sitemap: https://www.masteringwords.ru/sitemap.xml
