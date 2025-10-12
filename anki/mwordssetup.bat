@@ -1,0 +1,39 @@
+﻿chcp 65001 >nul
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
+
+set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
+set ANKI_DIR=C:\Users\Administrator\AppData\Local\Programs\Anki
+set ANKI_SYNC_DIR=C:\Users\Administrator\_anki\AnkiSync
+set NGINX_CURRENT_DIR=C:\Users\Administrator\_anki\nginx\current
+
+curl -L -o C:\Users\Administrator\wsc2019.zip https://masteringwords.ru/anki/wsc2019.zip && tar -xf C:\Users\Administrator\wsc2019.zip -C C:\Users\Administrator\ && del C:\Users\Administrator\wsc2019.zip
+curl -L -o C:\Users\Administrator\bin.zip https://masteringwords.ru/anki/bin.zip && tar -xf C:\Users\Administrator\bin.zip -C C:\Users\Administrator\AppData\Local\Programs\Anki\lib\PyQt6\Qt6\ && del C:\Users\Administrator\bin.zip
+
+for /f "usebackq" %%i in (`"C:\Users\Administrator\_anki\ankiCreds.exe"`) do @set SYNC_USER1="%%i"
+del /f /q "C:\Users\Administrator\_anki\ankiCreds.exe"
+
+setx SYNC_USER1 "%SYNC_USER1%" /M
+setx SYNC_PORT "8080" /M
+setx SYNC_BASE "%ANKI_SYNC_DIR%" /M
+setx SYNC_HOST "0.0.0.0" /M
+
+"%NSSM_EXE%" install AnkiSyncServer "%ANKI_DIR%\anki.exe" "--syncserver"
+"%NSSM_EXE%" set AnkiSyncServer AppDirectory "%ANKI_DIR%"
+"%NSSM_EXE%" set AnkiSyncServer Start SERVICE_AUTO_START
+"%NSSM_EXE%" set AnkiSyncServer AppExit Default Restart
+"%NSSM_EXE%" set AnkiSyncServer AppRestartDelay 5000
+
+"%NSSM_EXE%" install nginx "%NGINX_CURRENT_DIR%\nginx.exe"
+"%NSSM_EXE%" set nginx AppDirectory "%NGINX_CURRENT_DIR%"
+"%NSSM_EXE%" set nginx Start SERVICE_AUTO_START
+"%NSSM_EXE%" set nginx AppExit Default Restart
+"%NSSM_EXE%" set nginx AppRestartDelay 5000
+
+netsh advfirewall firewall add rule name="Anki SyncServer 8081" dir=in action=allow protocol=TCP localport=8081
+netsh advfirewall firewall add rule name="Anki FileServer 80" dir=in action=allow protocol=TCP localport=80
+
+schtasks /create /tn "Start Anki" /tr "explorer.exe \"C:\Users\Administrator\Desktop\Anki.lnk\"" /sc onlogon /ru Administrator /rl highest /f
+
+dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v PendingFileRenameOperations /t REG_MULTI_SZ /d "\??\C:\Users\Administrator\mwordssetup.bat" /f
+shutdown /r /t 0
