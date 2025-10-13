@@ -35,5 +35,4 @@ netsh advfirewall firewall add rule name="Anki FileServer 80" dir=in action=allo
 schtasks /create /tn "Start Anki" /tr "explorer.exe \"C:\Users\Administrator\Desktop\Anki.lnk\"" /sc onlogon /ru Administrator /rl highest /f
 
 dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v PendingFileRenameOperations /t REG_MULTI_SZ /d "\??\C:\Users\Administrator\1.bat" /f
 shutdown /r /t 0
