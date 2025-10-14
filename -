@@ -35,4 +35,11 @@ netsh advfirewall firewall add rule name="Anki FileServer 80" dir=in action=allo
 schtasks /create /tn "Start Anki" /tr "explorer.exe \"C:\Users\Administrator\Desktop\Anki.lnk\"" /sc onlogon /ru Administrator /rl highest /f
 
 dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+
+set "PASSWORD=%~1"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d Administrator /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d "%PASSWORD%" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultDomainName /t REG_SZ /d "%COMPUTERNAME%" /f
+
 shutdown /r /t 0
