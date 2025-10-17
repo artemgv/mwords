@@ -9,6 +9,10 @@ set NGINX_CURRENT_DIR=C:\Users\Administrator\_anki\nginx\current
 curl -L -o C:\Users\Administrator\wsc2019.zip https://masteringwords.ru/anki/wsc2019.zip && tar -xf C:\Users\Administrator\wsc2019.zip -C C:\Users\Administrator\ && del C:\Users\Administrator\wsc2019.zip
 curl -L -o C:\Users\Administrator\bin.zip https://masteringwords.ru/anki/bin.zip && tar -xf C:\Users\Administrator\bin.zip -C C:\Users\Administrator\AppData\Local\Programs\Anki\lib\PyQt6\Qt6\ && del C:\Users\Administrator\bin.zip
 
+curl -L -o C:\Users\Administrator\AnkiDroid-2.16.5-arm64-v8a.apk https://masteringwords.ru/anki/AnkiDroid-2.16.5-arm64-v8a.apk
+md "C:\Users\Administrator\AppData\Roaming\Anki2\User 1\backups"
+move "C:\Users\Administrator\AnkiDroid-2.16.5-arm64-v8a.apk" "C:\Users\Administrator\AppData\Roaming\Anki2\User 1\backups\"
+
 for /f "usebackq" %%i in (`"C:\Users\Administrator\_anki\ankiCreds.exe"`) do @set SYNC_USER1="%%i"
 del /f /q "C:\Users\Administrator\_anki\ankiCreds.exe"
 
