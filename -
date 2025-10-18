@@ -21,17 +21,15 @@ setx SYNC_PORT "8080" /M
 setx SYNC_BASE "%ANKI_SYNC_DIR%" /M
 setx SYNC_HOST "0.0.0.0" /M
 
-"%NSSM_EXE%" install AnkiSyncServer "%ANKI_DIR%\anki.exe" "--syncserver"
+"%NSSM_EXE%" install AnkiSyncServer "%ANKI_DIR%\sync_wrapper.bat" "--syncserver"
 "%NSSM_EXE%" set AnkiSyncServer AppDirectory "%ANKI_DIR%"
 "%NSSM_EXE%" set AnkiSyncServer Start SERVICE_AUTO_START
-"%NSSM_EXE%" set AnkiSyncServer AppExit Default Restart
-"%NSSM_EXE%" set AnkiSyncServer AppRestartDelay 5000
+"%NSSM_EXE%" set AnkiSyncServer AppExit Default Exit
 
 "%NSSM_EXE%" install nginx "%NGINX_CURRENT_DIR%\nginx.exe"
 "%NSSM_EXE%" set nginx AppDirectory "%NGINX_CURRENT_DIR%"
 "%NSSM_EXE%" set nginx Start SERVICE_AUTO_START
-"%NSSM_EXE%" set nginx AppExit Default Restart
-"%NSSM_EXE%" set nginx AppRestartDelay 5000
+"%NSSM_EXE%" set nginx AppExit Default Exit
 
 netsh advfirewall firewall add rule name="Anki SyncServer 8081" dir=in action=allow protocol=TCP localport=8081
 netsh advfirewall firewall add rule name="Anki FileServer 80" dir=in action=allow protocol=TCP localport=80
@@ -45,5 +43,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdmi
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d Administrator /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d "%PASSWORD%" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultDomainName /t REG_SZ /d "%COMPUTERNAME%" /f
+
+net share restore=C:\Users\Administrator\_anki\restore /grant:Administrator,FULL
 
 shutdown /r /t 0
