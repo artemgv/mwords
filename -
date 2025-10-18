@@ -1,4 +1,4 @@
-﻿chcp 65001 >nul
+chcp 65001 >nul
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
