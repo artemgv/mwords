@@ -2,6 +2,8 @@ chcp 65001 >nul
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
+set MONGOOSE_DIR=C:\Users\Administrator\_anki
+
 set ANKI_DIR=C:\Users\Administrator\AppData\Local\Programs\Anki
 set ANKI_SYNC_DIR=C:\Users\Administrator\_anki\AnkiSync
 set NGINX_CURRENT_DIR=C:\Users\Administrator\_anki\nginx\current
@@ -21,7 +23,7 @@ setx SYNC_PORT "8080" /M
 setx SYNC_BASE "%ANKI_SYNC_DIR%" /M
 setx SYNC_HOST "0.0.0.0" /M
 
-"%NSSM_EXE%" install AnkiSyncServer "%ANKI_DIR%\sync_wrapper.bat" "--syncserver"
+"%NSSM_EXE%" install AnkiSyncServer "%ANKI_DIR%\sync_wrapper.bat"
 "%NSSM_EXE%" set AnkiSyncServer AppDirectory "%ANKI_DIR%"
 "%NSSM_EXE%" set AnkiSyncServer Start SERVICE_AUTO_START
 "%NSSM_EXE%" set AnkiSyncServer AppExit Default Exit
@@ -31,8 +33,14 @@ setx SYNC_HOST "0.0.0.0" /M
 "%NSSM_EXE%" set nginx Start SERVICE_AUTO_START
 "%NSSM_EXE%" set nginx AppExit Default Exit
 
+"%NSSM_EXE%" install mongoose "%MONGOOSE_DIR%\mongoose.exe" -l http://0.0.0.0:80 -u "C:\Users\Administrator\_anki\restore" -d "C:\Users\Administrator\AppData\Roaming\Anki2\User 1\backups" -p 8888
+"%NSSM_EXE%" set mongoose AppDirectory "%MONGOOSE_DIR%"
+"%NSSM_EXE%" set mongoose Start SERVICE_AUTO_START
+"%NSSM_EXE%" set mongoose AppExit Default Exit
+
 netsh advfirewall firewall add rule name="Anki SyncServer 8081" dir=in action=allow protocol=TCP localport=8081
-netsh advfirewall firewall add rule name="Anki FileServer 80" dir=in action=allow protocol=TCP localport=80
+netsh advfirewall firewall add rule name="Nginx FileServer 8888" dir=in action=allow protocol=TCP localport=8888
+netsh advfirewall firewall add rule name="mongoose 80" dir=in action=allow protocol=TCP localport=80
 
 schtasks /create /tn "Start Anki" /tr "explorer.exe \"C:\Users\Administrator\Desktop\Anki.lnk\"" /sc onlogon /ru Administrator /rl highest /f
 
@@ -43,7 +51,5 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdmi
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d Administrator /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d "%PASSWORD%" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultDomainName /t REG_SZ /d "%COMPUTERNAME%" /f
-
-net share restore=C:\Users\Administrator\_anki\restore /grant:Administrator,FULL
 
 shutdown /r /t 0
