@@ -1,0 +1,17 @@
+//el.quizlet.com
+ketchcdn.com
+ketchjs.com
+apple.com
+google
+.gstatic.com
+//gstatic.com
+scorecardresearch.com
+chrome-extension
+kaspersky
+amazon
+ay.delivery
+doubleclick.net
+ads-frontend
+login_signup_lazy
+rollbar.js
+https://assets.quizlet.com/static/
