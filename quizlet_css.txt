@@ -1,0 +1,62 @@
+.hahpxop,.WrittenFeedbackItem-answerOverride,.WriteQuestion-dontKnow,
+.WriteFeedbackItem-label,.WriteCopyAnswerView-heading,.FeedbackItem-label,
+.UIHorizontalRule,.UITextarea-label,.ModeControls-modeName,.WriteProgress-labelText,.FeedbackHeading-emoji, .cz3acib.n17nrlic {
+  display: none !important;
+}
+.ModeControls-back,.ModeControls-actions,.WriteQuestionElements-audioWrapper,.FeedbackTextWithImage-audio {
+  visibility: hidden !important;
+}
+.RendererWrapper {
+  min-height: 100vh !important;
+}
+.WrittenQuestionFeedbackView {
+  min-height: 94vh !important;
+}
+.FeedbackHeading-inner {
+  padding: 0 2rem 0 !important;
+}
+.WriteImageAttribute {
+  padding-top: 1rem !important;
+}
+.ModeControls-main {
+  padding-left: 0rem !important;
+}
+.WriteCopyAnswerView,.WriteQuestion {
+  padding-top: 1rem !important;
+  padding-left: 1.75rem !important;
+  padding-right: 1.25rem !important;
+  padding-bottom: 0.75rem !important;
+}
+.WriteQuestion-prompt {
+  border-bottom: 0 !important;
+}
+html {
+  font-size: 10px !important;
+  outline: 0.5rem solid rgb(27, 27, 30) !important;
+}
+.caosg6m,.FormattedText,.UIButton,.WriteProgressBar-label,.UIHeading {
+  font-size: 36px !important;
+}
+.UITextarea {
+  font-size: 42px !important;
+  font-weight: lighter !important;
+}
+.is-focused {
+  box-shadow: 0 0.375rem 0 0 rgb(27, 27, 30) !important;
+}
+.UITextarea-border {
+  box-shadow: 0 0.125rem 0 0 rgb(27, 27, 30) !important;
+}
+.ModeLayout-controls {
+  width: 5.25rem !important;
+}
+.ModeLayout-content {
+  padding: 0rem !important;
+  margin-left: 5rem !important;
+}
+.WriteProgress-value {
+  color: #868686 !important;
+}
+.site, .ModeControls, html {
+  background: rgb(27, 27, 30) !important;
+}
