@@ -1,6 +1,6 @@
 .hahpxop,.WrittenFeedbackItem-answerOverride,.WriteQuestion-dontKnow,
 .WriteFeedbackItem-label,.WriteCopyAnswerView-heading,.FeedbackItem-label,
-.UIHorizontalRule,.UITextarea-label,.ModeControls-modeName,.WriteProgress-labelText,.FeedbackHeading-emoji, .cz3acib.n17nrlic {
+.UIHorizontalRule,.UITextarea-label,.ModeControls-modeName,.WriteProgress-labelText,.FeedbackHeading-emoji, .cz3acib.n17nrlic, .hideBelow--s {
   display: none !important;
 }
 .ModeControls-back,.ModeControls-actions,.WriteQuestionElements-audioWrapper,.FeedbackTextWithImage-audio {
