@@ -1,1 +1,1 @@
-<blockquote class="prompt-info"><p>Кнопки громкости меняют размер шрифта.</p></blockquote><blockquote class="prompt-tip"><p>Чтобы быстрее освоиться, изучите раздел <a href="/about/">«О&nbsp;проекте»</a>.</p></blockquote>
+<blockquote class="prompt-tip"><p>Кнопки громкости меняют размер шрифта.</p></blockquote><blockquote class="prompt-tip"><p>Чтобы быстрее освоиться, изучите раздел <a href="/about/">«О&nbsp;проекте»</a>.</p></blockquote>
