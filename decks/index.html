@@ -783,7 +783,7 @@ href="javascript:location.href = 'mailto:' + ['support','masteringwords.ru'].joi
 
 <script>
 
-if ('Android' in window && typeof window.Android.setAppParams === 'function') {
+if ('Android' in window && typeof window.Android.setAppParams === 'function' && typeof window.Android.getIsAppParamsSet === 'function' && !window.Android.getIsAppParamsSet()) {
     window.Android.setAppParams(
         "<div id='quizlet-issue' style='width: 91vw; font-size: 1.86rem;'><blockquote class='prompt-tip'><p>Если виджет не отображается из-за недоступности серверов Quizlet, перезапуск может не помочь. Многие уже перешли на <a href='javascript: const qi = document.getElementById(&#39;quizlet-issue&#39;); if (qi) {qi.style.display = &#39;none&#39;;} Android.setTextZoom(178); window.location.href=&#39;/about/#личный-сервер-делает-всё-автоматически&#39;;'>AnkiDroid</a>, чтобы не прерывать обучение из-за технических сбоев. Установите и вы — это приложение не зависит от серверов за пределами РФ и работает даже при полном отсутствии интернета. Карточки синхронизируются автоматически, как только появляется связь.</p></blockquote></div>",
         '"https://ultravds.com/?p=4407"',
