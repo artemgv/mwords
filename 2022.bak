@@ -1,12 +1,21 @@
 chcp 65001 >nul
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
 
+net stop waasmedicsvc
+net stop usosvc
+net stop dosvc
+net stop bits
 net stop wuauserv
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v Start /t REG_DWORD /d 4 /f
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc"       /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc"        /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS"         /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DWORD /d 4 /f
 
 timeout /t 60 /nobreak >nul
 
-rmdir /s /q C:\Windows\SoftwareDistribution\Download
+rmdir /s /q C:\Windows\SoftwareDistribution
 dism /online /cleanup-image /startcomponentcleanup
 
 del /f /q %temp%\*
@@ -15,14 +24,14 @@ rd /s /q C:\$Recycle.Bin
 
 dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
 
-dism /online /cleanup-image /startcomponentcleanup /resetbase
-
 del /f /q C:\Windows\Logs\CBS\*
 del /f /q C:\Windows\Logs\DISM\*
+
+dism /online /cleanup-image /startcomponentcleanup /resetbase
+
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
 rd /s /q C:\$Recycle.Bin
-
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
 set MONGOOSE_DIR=C:\Users\Administrator\_anki
