@@ -16,7 +16,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DW
 timeout /t 60 /nobreak >nul
 
 rmdir /s /q C:\Windows\SoftwareDistribution
-dism /online /cleanup-image /startcomponentcleanup /resetbase
+dism /online /cleanup-image /startcomponentcleanup
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
