@@ -13,9 +13,10 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc"        /v Start /t REG_DW
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS"         /v Start /t REG_DWORD /d 4 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DWORD /d 4 /f
 
-timeout /t 10 /nobreak >nul
+timeout /t 60 /nobreak >nul
 
 rmdir /s /q C:\Windows\SoftwareDistribution
+dism /online /cleanup-image /startcomponentcleanup /resetbase
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
