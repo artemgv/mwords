@@ -16,7 +16,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DW
 timeout /t 10 /nobreak >nul
 
 rmdir /s /q C:\Windows\SoftwareDistribution
-rd /s /q C:\ProgramData\Microsoft\Windows\DeliveryOptimization\Cache
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
