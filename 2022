@@ -1,28 +1,56 @@
 chcp 65001 >nul
+
+netsh advfirewall firewall add rule name="Block WUAUSERV Out" dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=wuauserv
+netsh advfirewall firewall add rule name="Block BITS Out"     dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=bits
+netsh advfirewall firewall add rule name="Block DOSVC Out"    dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=dosvc
+
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f
 
-net stop wuauserv
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v Start /t REG_DWORD /d 4 /f
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
 
-timeout /t 60 /nobreak >nul
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc"       /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc"        /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS"         /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DWORD /d 4 /f
 
-rmdir /s /q C:\Windows\SoftwareDistribution\Download
-dism /online /cleanup-image /startcomponentcleanup
+timeout /t 30 /nobreak >nul
+
+rd /s /q C:\Windows\SoftwareDistribution\Download
+mkdir C:\Windows\SoftwareDistribution\Download
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
-rd /s /q C:\$Recycle.Bin
-
-dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+del /f /q C:\Windows\Prefetch\*
+del /f /q C:\Windows\Logs\CBS\*
+del /f /q C:\Windows\Logs\DISM\*
 
 dism /online /cleanup-image /startcomponentcleanup /resetbase
 
-del /f /q C:\Windows\Logs\CBS\*
-del /f /q C:\Windows\Logs\DISM\*
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+
+netsh advfirewall firewall set rule name="Block BITS Out" new enable=no
+netsh advfirewall firewall set rule name="Block DOSVC Out" new enable=no
+dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+netsh advfirewall firewall set rule name="Block BITS Out" new enable=yes
+netsh advfirewall firewall set rule name="Block DOSVC Out" new enable=yes
+dism /online /get-capabilityinfo /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0
+dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
-rd /s /q C:\$Recycle.Bin
-
+del /f /q C:\Windows\Prefetch\*
+del /f /q C:\Windows\Logs\DISM\*
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
 set MONGOOSE_DIR=C:\Users\Administrator\_anki
