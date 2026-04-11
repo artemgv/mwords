@@ -1,8 +1,15 @@
 chcp 65001 >nul
 
+ping api.ipify.org
+
 netsh advfirewall firewall add rule name="Block WUAUSERV Out" dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=wuauserv
+ping api.ipify.org
+
 netsh advfirewall firewall add rule name="Block BITS Out"     dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=bits
+ping api.ipify.org
+
 netsh advfirewall firewall add rule name="Block DOSVC Out"    dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=dosvc
+ping api.ipify.org
 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
@@ -71,15 +78,16 @@ net stop wuauserv /y
 
 timeout /t 30 /nobreak >nul
 
-netsh advfirewall firewall delete rule name="Block BITS Out"
-netsh advfirewall firewall delete rule name="Block DOSVC Out"
+netsh advfirewall firewall set rule name="Block BITS Out" new enable=no
+netsh advfirewall firewall set rule name="Block DOSVC Out" new enable=no
 dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+netsh advfirewall firewall set rule name="Block BITS Out" new enable=yes
+netsh advfirewall firewall set rule name="Block DOSVC Out" new enable=yes
 
 dism /online /get-capabilityinfo /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0
 dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
 rd /s /q C:\Windows\SoftwareDistribution\Download
 mkdir C:\Windows\SoftwareDistribution\Download
-netsh advfirewall firewall delete rule name="Block WUAUSERV Out"
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
