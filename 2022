@@ -14,6 +14,18 @@ net stop dosvc /y
 net stop bits /y
 net stop wuauserv /y
 
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc"       /v Start /t REG_DWORD /d 4 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc"        /v Start /t REG_DWORD /d 4 /f
@@ -28,10 +40,20 @@ mkdir C:\Windows\SoftwareDistribution\Download
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
 del /f /q C:\Windows\Prefetch\*
-del /f /q C:\Windows\Logs\CBS\*
-del /f /q C:\Windows\Logs\DISM\*
 
 dism /online /cleanup-image /startcomponentcleanup /resetbase
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
 
 net stop waasmedicsvc /y
 net stop usosvc /y
@@ -46,11 +68,12 @@ netsh advfirewall firewall set rule name="Block BITS Out" new enable=yes
 netsh advfirewall firewall set rule name="Block DOSVC Out" new enable=yes
 dism /online /get-capabilityinfo /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0
 dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+rd /s /q C:\Windows\SoftwareDistribution\Download
+mkdir C:\Windows\SoftwareDistribution\Download
 
 del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
 del /f /q C:\Windows\Prefetch\*
-del /f /q C:\Windows\Logs\DISM\*
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
 set MONGOOSE_DIR=C:\Users\Administrator\_anki
@@ -68,6 +91,8 @@ move "C:\Users\Administrator\AnkiDroid-2.16.5-arm64-v8a.apk" "C:\Users\Administr
 
 for /f "usebackq" %%i in (`"C:\Users\Administrator\_anki\ankiCreds.exe"`) do @set SYNC_USER1="%%i"
 del /f /q "C:\Users\Administrator\_anki\ankiCreds.exe"
+
+echo %SYNC_USER1%
 
 setx SYNC_USER1 "%SYNC_USER1%" /M
 setx SYNC_PORT "8080" /M
