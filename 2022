@@ -75,6 +75,9 @@ del /f /q %temp%\*
 del /f /q C:\Windows\Temp\*
 del /f /q C:\Windows\Prefetch\*
 
+
+ipconfig /flushdns
+
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
 set MONGOOSE_DIR=C:\Users\Administrator\_anki
 
