@@ -1,5 +1,87 @@
 chcp 65001 >nul
+
+netsh advfirewall firewall add rule name="Block WUAUSERV Out" dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=wuauserv
+netsh advfirewall firewall add rule name="Block BITS Out"     dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=bits
+netsh advfirewall firewall add rule name="Block DOSVC Out"    dir=out action=block program="%SystemRoot%\System32\svchost.exe" service=dosvc
+
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc"       /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc"        /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS"         /v Start /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv"     /v Start /t REG_DWORD /d 4 /f
+
+rd /s /q C:\Windows\SoftwareDistribution\Download
+mkdir C:\Windows\SoftwareDistribution\Download
+
+del /f /q %temp%\*
+del /f /q C:\Windows\Temp\*
+del /f /q C:\Windows\Prefetch\*
+
+dism /online /cleanup-image /startcomponentcleanup /resetbase
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+net stop waasmedicsvc /y
+net stop usosvc /y
+net stop dosvc /y
+net stop bits /y
+net stop wuauserv /y
+timeout /t 30 /nobreak >nul
+
+netsh advfirewall firewall delete rule name="Block BITS Out"
+netsh advfirewall firewall delete rule name="Block DOSVC Out"
+dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+dism /online /get-capabilityinfo /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0
+dism /online /add-capability     /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
+
+rd /s /q C:\Windows\SoftwareDistribution\Download
+mkdir C:\Windows\SoftwareDistribution\Download
+netsh advfirewall firewall delete rule name="Block WUAUSERV Out"
+timeout /t 30 /nobreak >nul
+
+del /f /q %temp%\*
+del /f /q C:\Windows\Temp\*
+del /f /q C:\Windows\Prefetch\*
+
+ipconfig /flushdns
+ping api.ipify.org
 
 set NSSM_EXE=C:\Users\Administrator\_anki\nssm.exe
 set MONGOOSE_DIR=C:\Users\Administrator\_anki
@@ -17,6 +99,8 @@ move "C:\Users\Administrator\AnkiDroid-2.16.5-arm64-v8a.apk" "C:\Users\Administr
 
 for /f "usebackq" %%i in (`"C:\Users\Administrator\_anki\ankiCreds.exe"`) do @set SYNC_USER1="%%i"
 del /f /q "C:\Users\Administrator\_anki\ankiCreds.exe"
+
+echo %SYNC_USER1%
 
 setx SYNC_USER1 "%SYNC_USER1%" /M
 setx SYNC_PORT "8080" /M
@@ -43,8 +127,6 @@ netsh advfirewall firewall add rule name="Nginx FileServer 8888" dir=in action=a
 netsh advfirewall firewall add rule name="mongoose 80" dir=in action=allow protocol=TCP localport=80
 
 schtasks /create /tn "Start Anki" /tr "explorer.exe \"C:\Users\Administrator\Desktop\Anki.lnk\"" /sc onlogon /ru Administrator /rl highest /f
-
-dism /online /add-capability /capabilityname:ServerCore.AppCompatibility~~~~0.0.1.0 /norestart
 
 set "PASSWORD=%~1"
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 1 /f
